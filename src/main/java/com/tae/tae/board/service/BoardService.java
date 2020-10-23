@@ -1,7 +1,7 @@
-package com.tae.board.service;
+package com.tae.tae.board.service;
 
-import com.tae.board.BoardRepository;
-import com.tae.board.vo.Board;
+import com.tae.tae.board.BoardRepository;
+import com.tae.tae.board.vo.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

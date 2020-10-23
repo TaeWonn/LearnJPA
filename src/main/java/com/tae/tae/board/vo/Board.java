@@ -1,4 +1,4 @@
-package com.tae.board.vo;
+package com.tae.tae.board.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

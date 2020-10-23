@@ -1,6 +1,8 @@
-package jpa.start;
+package com.tae.tae.jpa;
 
-import com.tae.member.vo.Member;
+import com.tae.tae.member.vo.Member;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,9 +10,12 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
 
+//@SpringBootTest
+@DataJpaTest
 public class JpaMain {
 
-    public static void main(String[] args){
+    @Test
+    void contextLoads(){
         // [엔티티 매니저 팩토리] - 생성
         EntityManagerFactory emf =
                 Persistence.createEntityManagerFactory("jpabook");
@@ -34,7 +39,7 @@ public class JpaMain {
     }
     
     // 비즈니스 로직
-    private static void logic(EntityManager em) {
+    void logic(EntityManager em) {
 
         String id = "id1";
         Member member = new Member();
