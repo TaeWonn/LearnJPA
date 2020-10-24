@@ -61,7 +61,7 @@ public class JpaMain {
         //목록 조회
 
         List<Member> members =
-            em.createQuery("select m from Member m",Member.class)
+            em.createQuery("select m.* from MEMBER m",Member.class)
                 .getResultList();
         System.out.println("member.size=" + members.size());
 
