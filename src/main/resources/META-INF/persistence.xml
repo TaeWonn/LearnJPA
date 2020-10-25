@@ -7,8 +7,8 @@
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user" value="tae"/>
             <property name="javax.persistence.jdbc.password" value="admin"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/tae"/>
-            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>-->
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://172.30.1.54:3306/tae"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
             <!--
              dialct 설정
              H2         : org.hibernate.dialect.H2Dialect
@@ -21,6 +21,7 @@
             <property name="hibernate.format_sql" value="true"/> <!-- 출력한 SQL 정렬 -->
             <property name="hibernate.use_sql_comments" value="true"/> <!-- 주석 출력 -->
             <property name="hibernate.id.new_generator_mappings" value="true"/> <!-- JPA 표준에 맞춘 새로운 키 생성 전략을 사용 -->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
 
         </properties>
     </persistence-unit>

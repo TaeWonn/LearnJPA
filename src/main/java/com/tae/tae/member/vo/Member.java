@@ -1,5 +1,6 @@
 package com.tae.tae.member.vo;
 
+import com.tae.tae.team.vo.Team;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,16 +12,24 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "jpabook")
+@Entity
 @Table(name = "MEMBER")
 public class Member {
 
-    @GeneratedValue
+    public Member(String id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
+    //@GeneratedValue
     @Id
     @Column(name = "ID")
     private String id;
 
     @Column(name = "NAME")
     private String name;
-    private Integer age;
+
+    @ManyToOne
+    @JoinColumn(name="TEAM_ID")
+    private Team team;
 }
