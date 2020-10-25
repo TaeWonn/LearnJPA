@@ -28,11 +28,12 @@ public class JpaMain {
         try {
             
             tx.begin();     //[트랜잭션] - 시작
-            logic(em);      //비즈니스 로직 실행
-            testSave(em);
-            queryLogicJoin(em);
-            updateRelation(em);
-            deleteRelation(em);
+            //logic(em);      //비즈니스 로직 실행
+            //testSave(em);
+            //queryLogicJoin(em);
+            //updateRelation(em);
+            //deleteRelation(em);
+            biDirection(em);
             tx.commit();    //[트랜잭션 커밋]
             
         } catch (Exception e) {
@@ -88,6 +89,7 @@ public class JpaMain {
         Member member2 = new Member("member2","회원2");
         member2.setTeam(team1); //연관관계 설정 member1 -> team1
         em.persist(member2);
+        //em.flush();
     }
 
     void queryLogicJoin(EntityManager em) {
@@ -122,5 +124,16 @@ public class JpaMain {
         member1.setTeam(null);
     }
 
+    void biDirection(EntityManager em) {
+
+        Team team = em.find(Team.class, "team1");
+        List<Member> members = team.getMembers();
+
+        System.out.println("==결과==");
+        for (Member member : members) {
+            System.out.println("member.username = " +
+                    member.getName());
+        }
+    }
 
 }
