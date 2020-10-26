@@ -33,7 +33,10 @@ public class JpaMain {
             //queryLogicJoin(em);
             //updateRelation(em);
             //deleteRelation(em);
-            biDirection(em);
+            //biDirection(em);
+            //test순순한객체_양방향();
+            //test순수한객체_양방향2();
+            testORM_양방향(em);
             tx.commit();    //[트랜잭션 커밋]
             
         } catch (Exception e) {
@@ -136,4 +139,76 @@ public class JpaMain {
         }
     }
 
+    public void testSaveNonOwner(EntityManager em) {
+
+        //회원1 저장
+        Member member1 = new Member("member1","회원1");
+        em.persist(member1);
+
+        //회원2 저장
+        Member member2 = new Member("member2","회원2");
+        em.persist(member2);
+
+        Team team1 = new Team("team1","팀1");
+        team1.getMembers().add(member1);
+        team1.getMembers().add(member2);
+
+        em.persist(team1);
+    }
+
+    void test순순한객체_양방향() {
+
+        //팀1
+        Team team1 = new Team("team1","팀1");
+        Member member1 = new Member("member1","회원1");
+        Member member2 = new Member("member2","회원2");
+
+        member1.setTeam(team1);
+        member2.setTeam(team1);
+
+        List<Member> members = team1.getMembers();
+        System.out.println("members.size = " + members.size());
+        //결과 : members.siz = 0
+    }
+
+    void test순수한객체_양방향2() {
+
+        //팀1
+        Team team1 = new Team("team1","팀1");
+        Member member1 = new Member("member1","회원1");
+        Member member2 = new Member("member2","회원2");
+
+        member1.setTeam(team1);           //연관관계 설정 member1 -> team1
+        team1.getMembers().add(member1);  //연관관계 설정 team1 -> member1
+
+        member2.setTeam(team1);           //연관관계 설정 member2 -> team1
+        team1.getMembers().add(member2);  //연관관계 설정 team1 -> member2
+
+        List<Member> members = team1.getMembers();
+        System.out.println("members.size = " + members.size());
+    }
+
+    void testORM_양방향(EntityManager em) {
+
+        //팀1 저장
+        Team team1 = new Team("team1","팀1");
+        em.persist(team1);
+
+        Member member1 = new Member("member1","회원1");
+
+        //양방향 연관관계 설정
+        member1.setTeam(team1);             //연관관계 설정 member1 -> team1
+        em.persist(member1);
+
+        Member member2 = new Member("member2","회원2");
+
+        //양방향 연관관계 설정
+        member2.setTeam(team1);             //연관관계 설정 member2 -> team1
+        em.persist(member2);
+
+        //==기존 코드 삭제==start//
+        team1.getMembers().add(member1);    //연관관계 설정 team1 -> member1
+        team1.getMembers().add(member2);    //연관관계 설정 team1 -> member2
+        //==기존 코드 삭제==end//
+    }
 }
