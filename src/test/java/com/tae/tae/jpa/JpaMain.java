@@ -211,4 +211,22 @@ public class JpaMain {
         team1.getMembers().add(member2);    //연관관계 설정 team1 -> member2
         //==기존 코드 삭제==end//
     }
+
+    public void 일대다단방향save(EntityManager em) {
+
+        Member member1 = new Member("member1");
+        Member member2 = new Member("member2");
+
+        Team team1 = new Team("team1");
+        team1.getMembers().add(member1);
+        team1.getMembers().add(member2);
+
+        em.persist(member1); //INSERT-member1
+        em.persist(member2); //INSERT-member2
+        em.persist(team1);   //INSERT-team1,
+                             //UPDATE-member1.fk
+                             //UPDATE-member2.fk
+
+        //transaction.commit();
+    }
 }

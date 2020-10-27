@@ -16,6 +16,9 @@ import javax.persistence.*;
 @Table(name = "MEMBER")
 public class Member {
 
+    public Member(String id){
+        this.id = id;
+    }
     public Member(String id, String name){
         this.id = id;
         this.name = name;

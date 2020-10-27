@@ -18,6 +18,10 @@ import java.util.List;
 @Table(name = "TEAM")
 public class Team {
 
+    public Team(String id){
+        this.id = id;
+    }
+
     public Team (String id , String name ) {
         this.id = id;
         this.name = name;
