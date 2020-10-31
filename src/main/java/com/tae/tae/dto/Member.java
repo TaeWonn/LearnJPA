@@ -1,15 +1,15 @@
-package com.tae.tae.member.vo;
+package com.tae.tae.dto;
 
-import com.tae.tae.team.vo.Team;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter
-@Setter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -36,6 +36,16 @@ public class Member {
     @JoinColumn(name="TEAM_ID")
     private Team team;
 
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT",
+                joinColumns = @JoinColumn(name = "MEMBER_ID"),
+                inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+    private List<Product> products = new ArrayList<>();
+
     public void setTeam(Team team){
 
         //기존 팀과 관계를 제거
@@ -44,4 +54,22 @@ public class Member {
         this.team = team;
         team.getMembers().add(this);
     }
+}
+
+@Entity
+@Table(name = "LOCKER")
+@Setter @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+class Locker{
+
+    @Id @GeneratedValue
+    @Column(name = "LOCKER_ID")
+    private Long id;
+
+    private String name;
+
+    @OneToOne(mappedBy = "locker")
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 }

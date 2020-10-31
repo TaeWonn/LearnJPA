@@ -1,6 +1,6 @@
-package com.tae.tae.board;
+package com.tae.tae.dao;
 
-import com.tae.tae.board.vo.Board;
+import com.tae.tae.dto.Board;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

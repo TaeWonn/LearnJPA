@@ -1,7 +1,7 @@
 package com.tae.tae.jpa;
 
-import com.tae.tae.member.vo.Member;
-import com.tae.tae.team.vo.Team;
+import com.tae.tae.dto.Member;
+import com.tae.tae.dto.Team;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 

@@ -1,6 +1,5 @@
-package com.tae.tae.team.vo;
+package com.tae.tae.dto;
 
-import com.tae.tae.member.vo.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
-package com.tae.tae.board;
+package com.tae.tae.controller;
 
-import com.tae.tae.board.service.BoardService;
-import com.tae.tae.board.vo.Board;
+import com.tae.tae.service.BoardService;
+import com.tae.tae.dto.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

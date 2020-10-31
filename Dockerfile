@@ -6,8 +6,8 @@ VOLUME /tmp
 
 EXPOSE 8081
 
-ARG JAR_FILE=target/Tae-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=out/artifacts/LearningJPA_jar/
 
-ADD ${JAR_FILE} tae.jar
+ADD ${JAR_FILE} LearningJPA.jar
 
 ENTRYPOINT ["java","-jar","/tae.jar"]

@@ -1,4 +1,4 @@
-package com.tae.tae.common.redis;
+package com.tae.tae.conf;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
