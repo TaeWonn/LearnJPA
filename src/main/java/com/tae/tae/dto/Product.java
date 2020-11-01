@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -18,4 +19,7 @@ public class Product {
     private String id;
 
     private String name;
+
+    @ManyToMany(mappedBy = "products") //역방향 추가
+    private List<Member> members;
 }
