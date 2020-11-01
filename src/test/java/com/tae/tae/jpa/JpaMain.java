@@ -15,13 +15,20 @@ import java.util.List;
 @DataJpaTest
 public class JpaMain {
 
-    @Test
-    void contextLoads(){
+    private EntityManagerFactory emf;
+
+    public EntityManager getEntityMnager() {
         // [엔티티 매니저 팩토리] - 생성
-        EntityManagerFactory emf =
-                Persistence.createEntityManagerFactory("jpabook");
+        emf = Persistence.createEntityManagerFactory("jpabook");
         // [엔티티 매니저] - 생성
         EntityManager em = emf.createEntityManager();
+
+        return em;
+    }
+
+    @Test
+    void contextLoads(){
+        EntityManager em = getEntityMnager();
         // [트랜잭션] - 획득
         EntityTransaction tx = em.getTransaction();
         

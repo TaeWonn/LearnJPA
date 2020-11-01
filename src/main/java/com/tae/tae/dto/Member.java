@@ -44,7 +44,7 @@ public class Member {
     @JoinTable(name = "MEMBER_PRODUCT",
                 joinColumns = @JoinColumn(name = "MEMBER_ID"),
                 inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<Product>();
 
     public void setTeam(Team team){
 

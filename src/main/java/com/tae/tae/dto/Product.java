@@ -14,8 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Product {
 
-    @Id @GeneratedValue
-    @Column(name = "PRODUCT_ID")
+    @Id @Column(name = "PRODUCT_ID")
     private String id;
 
     private String name;
