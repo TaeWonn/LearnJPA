@@ -1,4 +1,4 @@
-package com.tae.tae.dto;
+package com.tae.tae.dto.member;
 
 import lombok.Getter;
 import lombok.Setter;

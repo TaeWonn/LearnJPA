@@ -1,4 +1,4 @@
-package com.tae.tae.dto;
+package com.tae.tae.dto.board;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

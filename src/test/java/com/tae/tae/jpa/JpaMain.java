@@ -1,7 +1,7 @@
 package com.tae.tae.jpa;
 
-import com.tae.tae.dto.Member;
-import com.tae.tae.dto.Team;
+import com.tae.tae.dto.member.Member;
+import com.tae.tae.dto.member.Team;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -43,11 +43,13 @@ public class JpaMain {
             //biDirection(em);
             //test순순한객체_양방향();
             //test순수한객체_양방향2();
-            testORM_양방향(em);
+            //testORM_양방향(em);
+            find(em);
             tx.commit();    //[트랜잭션 커밋]
             
         } catch (Exception e) {
             tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }
@@ -235,5 +237,15 @@ public class JpaMain {
                              //UPDATE-member2.fk
 
         //transaction.commit();
+    }
+
+    @Test
+    public void find(EntityManager em) {
+
+        Member member = em.find(Member.class,"member1");
+        //List<Product> products = member.getProducts(); //연관관계 설정
+//        for(Product product : products){
+//            System.out.println("products.name = " + product.getName());
+//        }
     }
 }

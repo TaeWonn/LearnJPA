@@ -1,5 +1,6 @@
-package com.tae.tae.dto;
+package com.tae.tae.dto.member;
 
+import com.tae.tae.dto.order.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,13 +25,17 @@ public class Member {
         this.name = name;
     }
 
-    //@GeneratedValue
+    @GeneratedValue
     @Id
-    @Column(name = "ID")
+    @Column(name = "MEMBER_ID")
     private String id;
 
-    @Column(name = "NAME")
+    @Column(name = "USERNAME")
     private String name;
+
+    private String city;
+    private String street;
+    private String zipcode;
 
     @ManyToOne
     @JoinColumn(name="TEAM_ID")
@@ -40,11 +45,14 @@ public class Member {
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
-    @ManyToMany
-    @JoinTable(name = "MEMBER_PRODUCT",
-                joinColumns = @JoinColumn(name = "MEMBER_ID"),
-                inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
-    private List<Product> products = new ArrayList<Product>();
+//    @ManyToMany
+//    @JoinTable(name = "MEMBER_PRODUCT",
+//                joinColumns = @JoinColumn(name = "MEMBER_ID"),
+//                inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+//    private List<Product> products = new ArrayList<Product>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<Order>();
 
     public void setTeam(Team team){
 
@@ -55,11 +63,11 @@ public class Member {
         team.getMembers().add(this);
     }
 
-    public void addProduct(Product product){
-
-        products.add(product);
-        product.getMembers().add(this);
-    }
+//    public void addProduct(Product product){
+//
+//        products.add(product);
+//        product.getMembers().add(this);
+//    }
 }
 
 @Entity
@@ -73,6 +81,7 @@ class Locker{
     @Column(name = "LOCKER_ID")
     private Long id;
 
+    @Column(name = "LOCKER_NAME")
     private String name;
 
     @OneToOne(mappedBy = "locker")
