@@ -37,8 +37,8 @@ public class ManyToMany {
         em.persist(productA);
 
         Member member1 = new Member();
-        member1.setId("member1");
-        member1.setName("회원1");
+        //member1.setId("member1");
+        //member1.setName("회원1");
         //member1.getProducts().add(productA); //연관관계 설정
         em.persist(member1);
 

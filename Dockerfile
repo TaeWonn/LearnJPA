@@ -10,4 +10,4 @@ ARG JAR_FILE=out/artifacts/LearningJPA_jar/
 
 ADD ${JAR_FILE} LearningJPA.jar
 
-ENTRYPOINT ["java","-jar","/tae.jar"]
+ENTRYPOINT ["java","-jar","/tae-0.0.1-SNAPSHOT.jar"]

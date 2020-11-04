@@ -1,5 +1,6 @@
 package com.tae.tae.dto.member;
 
+import com.tae.tae.dto.BaseEntity;
 import com.tae.tae.dto.order.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,23 +16,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "MEMBER")
-public class Member {
-
-    public Member(String id){
-        this.id = id;
-    }
-    public Member(String id, String name){
-        this.id = id;
-        this.name = name;
-    }
-
-    @GeneratedValue
-    @Id
-    @Column(name = "MEMBER_ID")
-    private String id;
-
-    @Column(name = "USERNAME")
-    private String name;
+@AttributeOverrides({
+        @AttributeOverride(name = "id", column = @Column(name = "MEMBER_ID")),
+        @AttributeOverride(name = "name", column = @Column(name = "MEMBER_NAME"))
+})
+public class Member extends BaseEntity {
 
     private String city;
     private String street;

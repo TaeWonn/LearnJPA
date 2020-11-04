@@ -61,8 +61,8 @@ public class JpaMain {
 
         String id = "id1";
         Member member = new Member();
-        member.setId(id);
-        member.setName("tae");
+        //member.setId(id);
+        //member.setName("tae");
         //member.setAge(2);
 
         //등록
@@ -73,7 +73,7 @@ public class JpaMain {
 
         //한 건 조회
         Member findMember = em.find(Member.class, id);
-        System.out.println("findMember= "+ findMember.getName());
+        //System.out.println("findMember= "+ findMember.getName());
 
         //목록 조회
 
@@ -93,14 +93,14 @@ public class JpaMain {
         em.persist(team1);
 
         // 회원1 저장
-        Member member1 = new Member("member1","회원1");
-        member1.setTeam(team1); //연관관계 설정 member1 -> team1
-        em.persist(member1);
+        //Member member1 = new Member("member1","회원1");
+        //member1.setTeam(team1); //연관관계 설정 member1 -> team1
+       // em.persist(member1);
 
         // 회원2 저장
-        Member member2 = new Member("member2","회원2");
-        member2.setTeam(team1); //연관관계 설정 member1 -> team1
-        em.persist(member2);
+//        Member member2 = new Member("member2","회원2");
+//        member2.setTeam(team1); //연관관계 설정 member1 -> team1
+//        em.persist(member2);
         //em.flush();
     }
 
@@ -114,8 +114,8 @@ public class JpaMain {
                 .getResultList();
 
         for(Member member : resultList) {
-            System.out.println("[query] member.username=" +
-                member.getName());
+            //System.out.println("[query] member.username=" +
+                //member.getName());
         }
     }
 
@@ -143,24 +143,24 @@ public class JpaMain {
 
         System.out.println("==결과==");
         for (Member member : members) {
-            System.out.println("member.username = " +
-                    member.getName());
+            //System.out.println("member.username = " +
+             //       member.getName());
         }
     }
 
     public void testSaveNonOwner(EntityManager em) {
 
         //회원1 저장
-        Member member1 = new Member("member1","회원1");
-        em.persist(member1);
+        //Member member1 = new Member("member1","회원1");
+        //em.persist(member1);
 
         //회원2 저장
-        Member member2 = new Member("member2","회원2");
-        em.persist(member2);
+//        Member member2 = new Member("member2","회원2");
+//        em.persist(member2);
 
         Team team1 = new Team("team1","팀1");
-        team1.getMembers().add(member1);
-        team1.getMembers().add(member2);
+//        team1.getMembers().add(member1);
+//        team1.getMembers().add(member2);
 
         em.persist(team1);
     }
@@ -169,11 +169,11 @@ public class JpaMain {
 
         //팀1
         Team team1 = new Team("team1","팀1");
-        Member member1 = new Member("member1","회원1");
-        Member member2 = new Member("member2","회원2");
+//        Member member1 = new Member("member1","회원1");
+//        Member member2 = new Member("member2","회원2");
 
-        member1.setTeam(team1);
-        member2.setTeam(team1);
+//        member1.setTeam(team1);
+//        member2.setTeam(team1);
 
         List<Member> members = team1.getMembers();
         System.out.println("members.size = " + members.size());
@@ -184,14 +184,14 @@ public class JpaMain {
 
         //팀1
         Team team1 = new Team("team1","팀1");
-        Member member1 = new Member("member1","회원1");
-        Member member2 = new Member("member2","회원2");
+//        Member member1 = new Member("member1","회원1");
+//        Member member2 = new Member("member2","회원2");
 
-        member1.setTeam(team1);           //연관관계 설정 member1 -> team1
-        team1.getMembers().add(member1);  //연관관계 설정 team1 -> member1
-
-        member2.setTeam(team1);           //연관관계 설정 member2 -> team1
-        team1.getMembers().add(member2);  //연관관계 설정 team1 -> member2
+//        member1.setTeam(team1);           //연관관계 설정 member1 -> team1
+//        team1.getMembers().add(member1);  //연관관계 설정 team1 -> member1
+//
+//        member2.setTeam(team1);           //연관관계 설정 member2 -> team1
+//        team1.getMembers().add(member2);  //연관관계 설정 team1 -> member2
 
         List<Member> members = team1.getMembers();
         System.out.println("members.size = " + members.size());
@@ -203,35 +203,35 @@ public class JpaMain {
         Team team1 = new Team("team1","팀1");
         em.persist(team1);
 
-        Member member1 = new Member("member1","회원1");
+//        Member member1 = new Member("member1","회원1");
 
         //양방향 연관관계 설정
-        member1.setTeam(team1);             //연관관계 설정 member1 -> team1
-        em.persist(member1);
+//        member1.setTeam(team1);             //연관관계 설정 member1 -> team1
+//        em.persist(member1);
 
-        Member member2 = new Member("member2","회원2");
+//        Member member2 = new Member("member2","회원2");
 
         //양방향 연관관계 설정
-        member2.setTeam(team1);             //연관관계 설정 member2 -> team1
-        em.persist(member2);
+//        member2.setTeam(team1);             //연관관계 설정 member2 -> team1
+//        em.persist(member2);
 
         //==기존 코드 삭제==start//
-        team1.getMembers().add(member1);    //연관관계 설정 team1 -> member1
-        team1.getMembers().add(member2);    //연관관계 설정 team1 -> member2
+//        team1.getMembers().add(member1);    //연관관계 설정 team1 -> member1
+//        team1.getMembers().add(member2);    //연관관계 설정 team1 -> member2
         //==기존 코드 삭제==end//
     }
 
     public void 일대다단방향save(EntityManager em) {
 
-        Member member1 = new Member("member1");
-        Member member2 = new Member("member2");
+//        Member member1 = new Member("member1");
+//        Member member2 = new Member("member2");
 
         Team team1 = new Team("team1");
-        team1.getMembers().add(member1);
-        team1.getMembers().add(member2);
+//        team1.getMembers().add(member1);
+//        team1.getMembers().add(member2);
 
-        em.persist(member1); //INSERT-member1
-        em.persist(member2); //INSERT-member2
+//        em.persist(member1); //INSERT-member1
+//        em.persist(member2); //INSERT-member2
         em.persist(team1);   //INSERT-team1,
                              //UPDATE-member1.fk
                              //UPDATE-member2.fk

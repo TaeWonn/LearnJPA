@@ -21,8 +21,8 @@ public class Identifying {
     public void save() {
         //회원 저장
         Member member1 = new Member();
-        member1.setId("member1");
-        member1.setName("회원1");
+        //member1.setId("member1");
+        //member1.setName("회원1");
         em.persist(member1);
 
         //상품 저장
@@ -53,7 +53,7 @@ public class Identifying {
         Member member = order.getMember();
         //Product product = order.getProduct();
 
-        System.out.println("member = " + member.getName());
+        //System.out.println("member = " + member.getName());
         //System.out.println("product = " + product.getName());
         System.out.println("orderAmount = "
                 + order.getOrderAmount());
