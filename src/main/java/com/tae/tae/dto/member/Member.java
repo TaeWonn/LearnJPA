@@ -1,6 +1,5 @@
 package com.tae.tae.dto.member;
 
-import com.tae.tae.dto.BaseEntity;
 import com.tae.tae.dto.order.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,12 +15,15 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "MEMBER")
-@AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "MEMBER_ID")),
-        @AttributeOverride(name = "name", column = @Column(name = "MEMBER_NAME"))
-})
-public class Member extends BaseEntity {
+//@AttributeOverrides({ //상속 관련 어노테이션 설정
+//        @AttributeOverride(name = "id", column = @Column(name = "MEMBER_ID")),
+//        @AttributeOverride(name = "name", column = @Column(name = "MEMBER_NAME"))
+//})
+public class Member  {
 
+    @Id @GeneratedValue
+    @Column(name = "MEMBER_ID")
+    private String id;
     private String city;
     private String street;
     private String zipcode;
