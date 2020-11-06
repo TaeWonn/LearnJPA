@@ -1,5 +1,6 @@
 package com.tae.tae.dto.order;
 
+import com.tae.tae.dto.BaseEntity;
 import com.tae.tae.dto.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 //@IdClass(MemberProductId.class)
-public class Order {
+@AttributeOverrides({
+        @AttributeOverride(name = "createDate", column = @Column(name = "CREATE_DATE")),
+        @AttributeOverride(name = "updateDate", column = @Column(name = "UPDATE_DATE"))
+})
+public class Order extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "ORDER_ID")

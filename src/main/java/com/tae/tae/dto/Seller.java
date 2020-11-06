@@ -5,20 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
-@Entity
+//@Entity
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "MEMBER_ID")),
-        @AttributeOverride(name = "name", column = @Column(name = "MEMBER_NAME"))
-})
-public class Seller extends BaseEntity{
+public class Seller {
 
     private String shopName;
 }
