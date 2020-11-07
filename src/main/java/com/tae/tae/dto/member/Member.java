@@ -9,7 +9,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter @Setter
 @AllArgsConstructor
@@ -22,7 +24,7 @@ import java.util.List;
 //})
 public class Member extends BaseEntity {
 
-    @Id //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id //@GeneratedValue
     @Column(name = "MEMBER_ID")
     private String id;
 
@@ -33,12 +35,22 @@ public class Member extends BaseEntity {
 
     @Embedded Address homeAddress;
     @AttributeOverrides({
-            @AttributeOverride(name="city", column=@Column(name = "COMPANY_CITY")),
-            @AttributeOverride(name="street", column=@Column(name = "COMPANY_STREET")),
-            @AttributeOverride(name="zipcode", column=@Column(name = "COMPANY_ZIPCODE"))
+        @AttributeOverride(name="city",     column=@Column(name = "COMPANY_CITY",     insertable = false,updatable = false)),
+        @AttributeOverride(name="street",   column=@Column(name = "COMPANY_STREET",   insertable = false,updatable = false)),
+        @AttributeOverride(name="zipcode",  column=@Column(name = "COMPANY_ZIPCODE",  insertable = false,updatable = false)),
+        @AttributeOverride(name="state",    column=@Column(name = "COMPANY_STATE",    insertable = false,updatable = false))
     })
     Address companyAddress;
 
+    @ElementCollection
+    @CollectionTable(name = "FAVORITE_FOODS",
+        joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    private Set<String> favoriteFoods = new HashSet<String>();
+
+    @ElementCollection
+    @CollectionTable(name = "ADDRESS",
+        joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    private List<Address> addressHistory = new ArrayList<Address>();
 
     @ManyToOne
     @JoinColumn(name="TEAM_ID") //nullable = false (이너 조인 사용)
