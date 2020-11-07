@@ -44,6 +44,7 @@ public class JpaMain {
             //test순순한객체_양방향();
             //test순수한객체_양방향2();
             //testORM_양방향(em);
+            일대다단방향save(em);
             find(em);
             tx.commit();    //[트랜잭션 커밋]
             
@@ -223,16 +224,22 @@ public class JpaMain {
 
     public void 일대다단방향save(EntityManager em) {
 
-//        Member member1 = new Member("member1");
-//        Member member2 = new Member("member2");
+        Member member1 = new Member();
+        Member member2 = new Member();
+
+        member1.setId("member1");
+        member1.setName("회원1");
+        member2.setId("member2");
+        member2.setName("회원2");
 
         Team team1 = new Team("team1");
-//        team1.getMembers().add(member1);
-//        team1.getMembers().add(member2);
+        team1.getMembers().add(member1);
+        team1.getMembers().add(member2);
 
-//        em.persist(member1); //INSERT-member1
-//        em.persist(member2); //INSERT-member2
-        em.persist(team1);   //INSERT-team1,
+        em.persist(team1);
+        em.persist(member1); //INSERT-member1
+        em.persist(member2); //INSERT-member2
+        //em.persist(team1);   //INSERT-team1,
                              //UPDATE-member1.fk
                              //UPDATE-member2.fk
 

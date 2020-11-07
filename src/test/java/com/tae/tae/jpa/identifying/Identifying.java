@@ -6,12 +6,14 @@ import com.tae.tae.dto.member.MemberProductId;
 import com.tae.tae.dto.order.Product;
 import com.tae.tae.jpa.JpaMain;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class Identifying {
 
     private EntityManager em = new JpaMain().getEntityMnager();
@@ -21,8 +23,8 @@ public class Identifying {
     public void save() {
         //회원 저장
         Member member1 = new Member();
-        //member1.setId("member1");
-        //member1.setName("회원1");
+        member1.setId("member1");
+        member1.setName("회원1");
         em.persist(member1);
 
         //상품 저장

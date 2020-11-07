@@ -22,15 +22,26 @@ import java.util.List;
 //})
 public class Member extends BaseEntity {
 
-    @Id @GeneratedValue
+    @Id //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
     private String id;
-    private String city;
-    private String street;
-    private String zipcode;
+
+    @Column(name = "USERNAME")
+    private String name;
+
+    @Embedded PhoneNumber phoneNumber;
+
+    @Embedded Address homeAddress;
+    @AttributeOverrides({
+            @AttributeOverride(name="city", column=@Column(name = "COMPANY_CITY")),
+            @AttributeOverride(name="street", column=@Column(name = "COMPANY_STREET")),
+            @AttributeOverride(name="zipcode", column=@Column(name = "COMPANY_ZIPCODE"))
+    })
+    Address companyAddress;
+
 
     @ManyToOne
-    @JoinColumn(name="TEAM_ID")
+    @JoinColumn(name="TEAM_ID") //nullable = false (이너 조인 사용)
     private Team team;
 
     @OneToOne
@@ -46,7 +57,7 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<Order>();
 
-    public void setTeam(Team team){
+    public void addTeam(Team team){
 
         //기존 팀과 관계를 제거
         if(this.team != null) this.team.getMembers().remove(this);
