@@ -31,6 +31,9 @@ public class Member extends BaseEntity {
     @Column(name = "USERNAME")
     private String name;
 
+    @Column(name = "AGE")
+    private Integer age;
+
     @Embedded PhoneNumber phoneNumber;
 
     @Embedded Address homeAddress;

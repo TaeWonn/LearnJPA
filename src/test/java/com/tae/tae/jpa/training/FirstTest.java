@@ -1,7 +1,10 @@
 package com.tae.tae.jpa.training;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.tae.tae.dto.member.Member;
+import com.tae.tae.dto.member.QMember;
+import org.hibernate.Session;
+import org.hibernate.jdbc.Work;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -11,6 +14,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @DataJpaTest
@@ -56,5 +61,24 @@ public class FirstTest {
     @Test
     public void queryDSL(){
         JPAQuery query = new JPAQuery(em.getEntityManager());
+        QMember member = QMember.member;
+
+        //쿼리 결과 조회
+        List<Member> members =query.from(member)
+                .select(member).fetch();
+        members.forEach(System.out::println);
     }
+
+    @Test
+    public void 하이버네이트_JDBC_획득(){
+        Session session = em.getEntityManager().unwrap(Session.class);
+        session.doWork(new Work() {
+            @Override
+            public void execute(Connection connection) throws SQLException {
+                //work...
+            }
+        });
+    }
+
+
 }
