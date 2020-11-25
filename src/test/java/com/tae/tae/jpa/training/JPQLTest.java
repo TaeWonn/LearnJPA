@@ -1,4 +1,4 @@
-package com.tae.tae.jpa.training.jqpl;
+package com.tae.tae.jpa.training;
 
 import com.tae.tae.dto.member.Member;
 import com.tae.tae.dto.member.Team;

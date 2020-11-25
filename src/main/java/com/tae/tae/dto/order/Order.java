@@ -22,6 +22,17 @@ import java.util.List;
         @AttributeOverride(name = "createDate", column = @Column(name = "CREATE_DATE")),
         @AttributeOverride(name = "updateDate", column = @Column(name = "UPDATE_DATE"))
 })
+@SqlResultSetMapping(
+        name = "OrderResults",
+        entities = {
+                @EntityResult(entityClass = Order.class, fields = {
+                        @FieldResult(name = "id", column = "order_id"),
+                        @FieldResult(name = "order_amount", column = "order_amount"),
+                        @FieldResult(name = "item", column = "order_item"),
+                })
+        },
+        columns = { @ColumnResult(name = "name") }
+)
 public class Order extends BaseEntity {
 
     @Id @GeneratedValue

@@ -21,6 +21,10 @@ public class Product {
 
     private String name;
 
+    private Integer stockAmount;
+
+    private Integer price;
+
 //    @ManyToMany(mappedBy = "products") //역방향 추가
 //    private List<Member> members;
 }

@@ -1,12 +1,10 @@
 package com.tae.tae.jpa.training;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-
 import com.tae.tae.dto.member.Member;
 
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

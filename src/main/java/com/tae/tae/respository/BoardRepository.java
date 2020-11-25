@@ -1,4 +1,4 @@
-package com.tae.tae.dao;
+package com.tae.tae.respository;
 
 import com.tae.tae.dto.board.Board;
 import org.springframework.stereotype.Repository;
