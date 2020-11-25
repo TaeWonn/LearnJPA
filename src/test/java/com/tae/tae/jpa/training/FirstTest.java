@@ -1,10 +1,12 @@
 package com.tae.tae.jpa.training;
 
-import com.querydsl.jpa.impl.JPAQuery;
+import com.mysema.query.jpa.impl.JPAQuery;
+
 import com.tae.tae.dto.member.Member;
-import com.tae.tae.dto.member.QMember;
+
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -25,10 +27,8 @@ public class FirstTest {
     @Autowired
     private TestEntityManager em;
 
-
-
     @Test
-    public void JPQL사용(){
+    void JPQL사용(){
         String jpql = "select m from Member as m where m.name = '회원5'";
         List<Member> resultList =
                 em.getEntityManager()
@@ -39,7 +39,7 @@ public class FirstTest {
     }
 
     @Test
-    public void Criteria쿼리(){
+    void Criteria쿼리(){
         //Criteria 사용 준비
         CriteriaBuilder cb = em.getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Member> query = cb.createQuery(Member.class);
@@ -58,19 +58,11 @@ public class FirstTest {
         resultList.forEach(System.out::println);
     }
 
-    @Test
-    public void queryDSL(){
-        JPAQuery query = new JPAQuery(em.getEntityManager());
-        QMember member = QMember.member;
 
-        //쿼리 결과 조회
-        List<Member> members =query.from(member)
-                .select(member).fetch();
-        members.forEach(System.out::println);
-    }
 
+    /**/
     @Test
-    public void 하이버네이트_JDBC_획득(){
+    void 하이버네이트_JDBC_획득(){
         Session session = em.getEntityManager().unwrap(Session.class);
         session.doWork(new Work() {
             @Override

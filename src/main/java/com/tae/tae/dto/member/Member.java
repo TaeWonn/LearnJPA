@@ -18,10 +18,20 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "MEMBER")
-//@AttributeOverrides({
-//        @AttributeOverride(name = "createDate", column = @Column(name = "CREATE_DATE")),
-//        @AttributeOverride(name = "updateDate", column = @Column(name = "UPDATE_DATE"))
-//})
+/*@AttributeOverrides({
+        @AttributeOverride(name = "createDate", column = @Column(name = "CREATE_DATE")),
+        @AttributeOverride(name = "updateDate", column = @Column(name = "UPDATE_DATE"))
+})*/
+@NamedQueries({
+        @NamedQuery(
+                name = "Member.findByUsername",
+                query = "select m from Member m where m.name = :username"
+        ),
+        @NamedQuery(
+                name = "Member.count",
+                query = "select count(m) from Member m"
+        )
+})
 public class Member extends BaseEntity {
 
     @Id //@GeneratedValue
