@@ -6,9 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.LockModeType;
 import java.util.List;
+
 
 public interface MemberRepository
         extends JpaRepository<Member, String> ,
@@ -30,7 +32,5 @@ public interface MemberRepository
     // 쿼리 시 락을 걸려면 어노테이션을 사용한다.
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Member> findByName(String name);
-
-    Member findAll();
 
 }
