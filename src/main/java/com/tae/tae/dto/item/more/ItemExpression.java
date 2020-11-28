@@ -1,8 +1,9 @@
 package com.tae.tae.dto.item.more;
 
-import com.mysema.query.annotations.QueryDelegate;
-import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.path.StringPath;
+
+import com.querydsl.core.annotations.QueryDelegate;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.StringPath;
 import com.tae.tae.dto.item.Item;
 import com.tae.tae.dto.item.QItem;
 

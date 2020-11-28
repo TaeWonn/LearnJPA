@@ -1,6 +1,7 @@
 package com.tae.tae.respository.impl;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+
+import com.querydsl.jpa.impl.JPAQuery;
 import com.tae.tae.dto.member.Member;
 import com.tae.tae.respository.custom.MemberRepositoryCustom;
 
@@ -19,8 +20,9 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
     public List<Member> findMemberCustom() {
         JPAQuery query = new JPAQuery(em);
 
-        return query.from(member)
-                .orderBy(member.name.desc())
-                .list(member);
+        query.from(member)
+                .orderBy(member.name.desc());
+
+        return query.fetch();
     }
 }

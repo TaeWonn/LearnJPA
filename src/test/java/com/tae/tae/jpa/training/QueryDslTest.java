@@ -1,14 +1,12 @@
 package com.tae.tae.jpa.training;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.QueryModifiers;
-import com.mysema.query.SearchResults;
-import com.mysema.query.Tuple;
-import com.mysema.query.jpa.JPASubQuery;
-import com.mysema.query.jpa.impl.JPADeleteClause;
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.jpa.impl.JPAUpdateClause;
-import com.mysema.query.types.Projections;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.QueryModifiers;
+import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPADeleteClause;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import com.tae.tae.dto.item.Item;
 import com.tae.tae.dto.item.QItem;
 import com.tae.tae.dto.item.more.ItemDTO;
@@ -25,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.util.StringUtils;
 
+import javax.naming.directory.SearchResult;
 import java.util.List;
 
 import static com.tae.tae.dto.member.QMember.member; //기본 인스턴스 사용
@@ -52,12 +51,12 @@ public class QueryDslTest {
         QMember member = new QMember("m");  // 별칭 직접 지정
         //QMember member = QMember.member;  //기본 인스턴스 사용
 
+        query.from(member)
+                .where(member.name.eq("회원5"))
+                .orderBy(member.name.desc());
+
         //쿼리 결과 조회
-        List<Member> members =
-                query.from(member)
-                        .where(member.name.eq("회원5"))
-                        .orderBy(member.name.desc())
-                        .list(member);
+        List<Member> members = query.fetch();
 
         members.forEach(System.out::println);
     }
@@ -67,10 +66,11 @@ public class QueryDslTest {
         JPAQuery query = new JPAQuery(em.getEntityManager());
         QItem item = QItem.item;
 
-        List<Item> list =
-                query.from(item)
-                        .where(item.name.eq("회원5").and(item.price.gt(20000)))
-                        .list(item);
+        query.from(item)
+                .where(item.name.eq("회원5").and(item.price.gt(20000)));
+
+        List<Item> list = query.fetch();
+
         /*
             item.price.between(10000,20000)  // 가격이 10000 ~ 20000원 상품
             item.name.contains("상품1")       // 상품1이라는 이름을 포함한 상품,
@@ -90,8 +90,9 @@ public class QueryDslTest {
         query.from(item)
                 .where(item.price.gt(20000))
                 .orderBy(item.price.desc(), item.stockQuantity.asc())
-                .offset(1).limit(10)
-                .list(item);
+                .offset(1).limit(10);
+
+        query.fetch();
     }
 
     @Test
@@ -99,32 +100,34 @@ public class QueryDslTest {
         JPAQuery query = new JPAQuery(em.getEntityManager());
         QueryModifiers queryModifiers = new QueryModifiers(20L, 10L); //limit, offset
 
-        List<Item> list =
-                query.from(item)
-                        .restrict(queryModifiers)
-                        .list(item);
+        query.from(item)
+                .restrict(queryModifiers);
+
+        List<Item> list = query.fetch();
     }
 
     @Test
     void 페이징과정렬listResults사용 () {
         JPAQuery query = new JPAQuery(em.getEntityManager());
 
-        SearchResults<Item> result =
-                query.from(item)
-                        .where(item.price.gt(10000))
-                        .offset(1).limit(10)
-                        .listResults(item);
+        query.from(item)
+                .where(item.price.gt(10000))
+                .offset(1).limit(10);
+
+        // 버전 업 하면서 deprecated
+        /*SearchResult result =
+                query.fetchResults();*/
     }
     /*  paging end  */
 
     /*  groupBy start  */
     @Test
     void groupBy사용 () {
-        List<Item> result =
-                query.from(item)
-                        .groupBy(item.price)
-                        .having(item.price.gt(1000))
-                        .list(item);
+        query.from(item)
+                .groupBy(item.price)
+                .having(item.price.gt(1000));
+
+        List<Item> result = query.fetch();
     }
     /*  groupBy end  */
 
@@ -137,8 +140,8 @@ public class QueryDslTest {
 
         query.from(order)
                 .join(order.member, member)
-                .leftJoin(order.orderItems, orderItem)
-                .list(order);
+                .leftJoin(order.orderItems, orderItem);
+        query.fetch();
     }
 
     @Test
@@ -146,49 +149,52 @@ public class QueryDslTest {
         // On 사용
         query.from(order)
                 .leftJoin(order.orderItems, orderItem)
-                .on(orderItem.count.gt(2))
-                .list(order);
+                .on(orderItem.count.gt(2));
+                query.fetch();
     }
 
     @Test
     void 패치조인사용() {
         query.from(order)
-                .innerJoin(order.member, member).fetch()
-                .leftJoin(order.orderItems, orderItem).fetch()
-                .list(order);
+                .innerJoin(order.member, member)
+                .leftJoin(order.orderItems, orderItem).fetchResults();
     }
 
     @Test
     void from절에_여러조건_사용() {
         query.from(order, member)
-                .where(order.member.eq(member))
-                .list(order);
+                .where(order.member.eq(member));
+        query.fetch();
     }
     /*  groupBy end  */
 
     /* subQuery start */
     @Test
     void 서브쿼리_예제_한건() {
+
         QItem itemSub = new QItem("itemSub");
 
-        query.from(item)
+        // deprecated
+
+        /*query.from(item)
                 .where(item.price.eq(
                         new JPASubQuery().from(itemSub).unique(itemSub.price.max())
                 ))
-                .list(item);
+                .list(item);*/
     }
 
     @Test
     void 서브쿼리_예제_다건() {
         QItem itemSub = new QItem("itemSub");
 
-        query.from(item)
+        // deprecated
+        /*query.from(item)
                 .where(item.in(
                         new JPASubQuery().from(itemSub)
                                 .where(item.name.eq(itemSub.name))
                                 .list(itemSub)
                 ))
-                .list(item);
+                .list(item);*/
     }
 
     /* subQuery end */
@@ -197,7 +203,8 @@ public class QueryDslTest {
     @Test
     void 프로젝션_대상_하나 () {
         query.from(item)
-                .list(item.name)
+                .select(item.name)
+                .fetch()
                 .forEach(System.out::println);
     }
 
@@ -205,7 +212,8 @@ public class QueryDslTest {
     void 튜플_사용_예제() {
         List<Tuple> result =
                 query.from(item)
-                    .list(item.name, item.price);
+                    .select(item.name, item.price)
+                    .fetch();
 
         for(Tuple tuple: result) {
             System.out.println("name = "+ tuple.get(item.name));
@@ -216,25 +224,28 @@ public class QueryDslTest {
     @Test
     void 프로퍼티_접근_setter() {
         List<ItemDTO> result =
-            query.from(item).list(
+            query.from(item).select(
                         Projections.bean(ItemDTO.class, item.name.as("username"), item.price)
-                );
+                )
+                .fetch();
     }
 
     @Test
     void 필드_직접_접근 () {
         List<ItemDTO> result =
-            query.from(item).list(
+            query.from(item).select(
                         Projections.fields(ItemDTO.class, item.name.as("username"), item.price)
-                );
+                )
+                .fetch();
     }
 
     @Test
     void 생성자_사용_접근 () {
         List<ItemDTO> result =
-                query.from(item).list(
+                query.from(item).select(
                         Projections.constructor(ItemDTO.class, item.name, item.price)
-                );
+                )
+                .fetch();
     }
 
     /* 프로젝션 결과 반환 end */
@@ -273,19 +284,20 @@ public class QueryDslTest {
         if (param.getPrice() != null)
             builder.and(item.price.gt(param.getPrice()));
 
-        List<Item> result =
-                query.from(item)
-                .where(builder)
-                .list(item);
+        query.from(item)
+                .where(builder);
+
+        List<Item> result = query.fetch();
     }
     /* 동적 쿼리 end */
 
     /* 메소드 위임 start */
     @Test
     void 검색_조건_정의() {
-        query.from(item)
+        // deprecated
+        /*query.from(item)
                 .where(item.isExpensive(30000))
-                .list(item);
+                .list(item);*/
     }
     /* 메소드 위임 end */
 }
