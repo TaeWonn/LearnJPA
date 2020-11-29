@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.LockModeType;
 import java.util.List;
 
-
+@Repository
 public interface MemberRepository
         extends JpaRepository<Member, String> ,
                 JpaSpecificationExecutor ,
