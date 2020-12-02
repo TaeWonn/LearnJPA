@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -40,7 +41,17 @@ public class MemberController {
     @GetMapping(value = "/members_page")
     public ResponseEntity list(@PageableDefault(size = 12, sort = "name", direction = Sort.Direction.DESC) Pageable pageable) {
 
+        List<Member> members = memberService.findMembers(pageable);
 
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/member/{id}")
+    public ResponseEntity viewMember(@PathVariable("id") Long id) {
+
+        Member member = memberService.getMember(id);
+        member.setName("XXX");
+
+        return new ResponseEntity(member, HttpStatus.OK);
     }
 }

@@ -33,4 +33,5 @@ public interface MemberRepository
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Member> findByName(String name);
 
+    Member findById(Long id);
 }
