@@ -10,4 +10,7 @@ public interface OrderRepositoryCustom {
 
     public List<Order> search(OrderSearch orderSearch);
 
+    public Order findOne(Long id);
+
+    public Long save(Order order);
 }

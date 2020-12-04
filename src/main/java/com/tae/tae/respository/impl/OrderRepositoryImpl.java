@@ -1,6 +1,7 @@
 package com.tae.tae.respository.impl;
 
 import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.tae.tae.dto.member.QMember;
 import com.tae.tae.dto.order.Order;
 import com.tae.tae.dto.order.OrderSearch;
@@ -45,5 +46,15 @@ public class OrderRepositoryImpl
 
         return query.fetch();
     }
+    @Override
+    public Order findOne(Long id) {
+        Order order = em.find(Order.class,id);
+        return order;
+    }
 
+    @Override
+    public Long save(Order order) {
+        em.persist(order);
+        return order.getId();
+    }
 }
