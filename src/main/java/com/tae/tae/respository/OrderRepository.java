@@ -9,4 +9,8 @@ public interface OrderRepository
                 JpaSpecificationExecutor<Order> {
 
     Order findOrder(Long id);
+
+    Order findOne(Long id);
+
+    Long save(Order order);
 }
