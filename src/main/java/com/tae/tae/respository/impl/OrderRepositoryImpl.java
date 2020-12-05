@@ -53,8 +53,16 @@ public class OrderRepositoryImpl
     }
 
     @Override
-    public Long save(Order order) {
+    public Long saveOrder(Order order) {
         em.persist(order);
         return order.getId();
+    }
+
+    @Override
+    public Order findOrder(Long id) {
+        JPQLQuery<Order> query = from(QOrder.order);
+
+        query.where(QOrder.order.id.eq(id));
+        return query.fetchOne();
     }
 }

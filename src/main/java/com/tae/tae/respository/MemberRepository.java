@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.LockModeType;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MemberRepository
@@ -33,5 +34,5 @@ public interface MemberRepository
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Member> findByName(String name);
 
-    Member findById(Long id);
+    Optional<Member> findById(String id);
 }

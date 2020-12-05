@@ -23,8 +23,8 @@ public class MemberService {
         return memberRepository.findById(id).get();
     }
 
-    public Member getMember(Long id) {
-        return memberRepository.findById(id);
+    public Member getMember(String id) {
+        return memberRepository.findById(id).get();
     }
 
     public List<Member> findMembers(Pageable pageable) {

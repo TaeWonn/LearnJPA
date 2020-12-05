@@ -18,6 +18,6 @@ public class OrderService {
     }
 
     public Long postOrder(Order order) {
-        return  orderRepository.save(order);
+        return  orderRepository.saveOrder(order);
     }
 }

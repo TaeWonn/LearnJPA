@@ -25,19 +25,6 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/member/{id}")
-    public ResponseEntity updateUser(@PathVariable("id") String id) {
-        Member member = null;
-
-        try{
-            member = memberService.findOne(id);
-        } catch (NoSuchElementException e){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(member, HttpStatus.OK);
-    }
-
     @GetMapping(value = "/members_page")
     public ResponseEntity list(@PageableDefault(size = 12, sort = "name", direction = Sort.Direction.DESC) Pageable pageable) {
 
@@ -47,7 +34,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/{id}")
-    public ResponseEntity viewMember(@PathVariable("id") Long id) {
+    public ResponseEntity viewMember(@PathVariable("id") String id) {
 
         Member member = memberService.getMember(id);
         member.setName("XXX");

@@ -12,5 +12,7 @@ public interface OrderRepositoryCustom {
 
     public Order findOne(Long id);
 
-    public Long save(Order order);
+    public Long saveOrder(Order order);
+
+    public Order findOrder(Long id);
 }
