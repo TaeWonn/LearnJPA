@@ -34,5 +34,6 @@ public class Team {
     private String name;
 
     @OneToMany(mappedBy = "team")
+    @OrderBy("name desc, id asc")
     private List<Member> members = new ArrayList<>();
 }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -25,4 +27,14 @@ public class Board {
 
     @Column(table = "BOARD_DETAIL")
     private String contents;
+
+    @OneToMany(mappedBy = "board")
+    @OrderColumn(name = "POSITION")
+    private List<Comment> commentList = new ArrayList<>();
+
+    public Board(long id, String title, String contents) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+    }
 }

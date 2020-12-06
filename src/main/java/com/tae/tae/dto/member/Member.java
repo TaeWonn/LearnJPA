@@ -1,5 +1,6 @@
 package com.tae.tae.dto.member;
 
+import com.tae.tae.converter.BooleanToYNConverter;
 import com.tae.tae.dto.BaseEntity;
 import com.tae.tae.dto.order.Order;
 import lombok.AllArgsConstructor;
@@ -48,6 +49,9 @@ public class Member extends BaseEntity {
 
     @Column(name = "AGE")
     private Integer age;
+
+    @Convert(converter = BooleanToYNConverter.class)
+    private boolean vip;
 
     @Embedded PhoneNumber phoneNumber;
 

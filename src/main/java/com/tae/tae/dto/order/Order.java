@@ -33,13 +33,21 @@ import java.util.List;
         },
         columns = { @ColumnResult(name = "name") }
 )
+@NamedEntityGraph(name = "Order.withAll", attributeNodes = {
+        @NamedAttributeNode("member"),
+        @NamedAttributeNode(value = "orderItems", subgraph = "orderItems")
+        },
+        subgraphs = @NamedSubgraph(name = "orderItems", attributeNodes = {
+                @NamedAttributeNode("item")
+        })
+)
 public class Order extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "ORDER_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "MEMBER_ID")
     private Member member; //MemberProductId.member 와 연결
 
