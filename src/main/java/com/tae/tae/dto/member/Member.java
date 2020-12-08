@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter @Setter
 @AllArgsConstructor
@@ -105,6 +102,25 @@ public class Member extends BaseEntity {
 //        products.add(product);
 //        product.getMembers().add(this);
 //    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null) return false;
+        if(!(obj instanceof Member)) return false;
+
+        Member member = (Member) obj;
+
+        if(!Objects.equals(name, member.getName()))
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
 }
 
 @Entity

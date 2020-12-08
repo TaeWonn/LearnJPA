@@ -19,4 +19,14 @@ public class Book extends Item{
 
     private String author;  //작가
     private String isbn;    //ISBN
+
+    @Override
+    public String getTitle() {
+        return "[제목:" + getName() + " 저자:" + author +"]";
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
 }

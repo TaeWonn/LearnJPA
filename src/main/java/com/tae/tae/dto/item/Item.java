@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "DTYPE")
-public abstract class Item {
+public abstract class Item implements TitleView{
 
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
@@ -27,5 +27,7 @@ public abstract class Item {
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+    public abstract void accept(Visitor visitor);
 
 }
